@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.google.common.collect.ImmutableMap;
 import com.maxi.helpers.Calculation;
 import com.maxi.helpers.Capitalization;
 import com.maxi.helpers.Formatters;
@@ -21,8 +18,8 @@ import com.maxi.utils.BaseTest;
 
 public class EcommerceTest extends BaseTest {
 
-    //String name, String gender, String country
-    @Test(dataProvider = "getData")    
+    // String name, String gender, String country
+    @Test(dataProvider = "getData")
     public void fillForm(HashMap<String, String> input) throws InterruptedException {
         formPage.setNameField(input.get("name"));
         formPage.setGender(Capitalization.firstCharUpperCase(input.get("gender")));
@@ -36,7 +33,7 @@ public class EcommerceTest extends BaseTest {
         Assert.assertTrue(cartPage.isAtCartPage(), "Is not landing in cart page");
         cartPage.longPressTerms();
         Assert.assertEquals(cartPage.getTermsTitle(), "Terms Of Conditions");
-  /*       cartPage.closeClick();
+        cartPage.closeClick();
         cartPage.sendEmailClick();
 
         List<Double> priceList = new ArrayList<>();
@@ -49,15 +46,17 @@ public class EcommerceTest extends BaseTest {
         double totalPrice = Formatters.getFormattedAmount(cartPage.getTotalPrice());
 
         Assert.assertTrue(totalByProducts == totalPrice, "The operation is failed: Total by products: ("
-                + totalByProducts + "), total price: (" + totalPrice + ") are differents"); */
+                + totalByProducts + "), total price: (" + totalPrice + ") are differents");
     }
 
     @DataProvider
     public Object[][] getData() throws IOException {
-        // return new Object[][] { { "maxi", "male", "argentina" }, { "maximus", "male", "argentina" } };
-        
-        List<HashMap<String, String>> data = getJsonData(System.getProperty("user.dir")+"//src//test//java//com//maxi//resources//test-data//eCommerce.json");
-        
+        // return new Object[][] { { "maxi", "male", "argentina" }, { "maximus", "male",
+        // "argentina" } };
+
+        List<HashMap<String, String>> data = getJsonData(
+                System.getProperty("user.dir") + "//src//test//java//com//maxi//resources//test-data//eCommerce.json");
+
         return new Object[][] { { data.get(0) }, { data.get(1) } };
 
     }
